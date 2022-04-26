@@ -1,6 +1,6 @@
 {
   "private": true,
-  "homepage": ".",
+  "homepage": "https://hutec.github.io/espresso-divide",
   "scripts": {
     "dev": "next",
     "build": "next build",
