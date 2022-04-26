@@ -3,6 +3,7 @@ import { TileLayer } from "react-leaflet/TileLayer";
 import { GeoJSON, useMap } from "react-leaflet";
 import { gpx } from "@tmcw/togeojson";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { bounds } from "leaflet";
 
 const getBounds = (coordinates) => {
@@ -26,9 +27,16 @@ const Route = ({ track }) => {
   // See https://stackoverflow.com/questions/68758035/how-to-render-geojson-polygon-in-react-leaflet-mapcontainer
   const [geojson, setGeojson] = useState(0);
   const map = useMap();
+  const router = useRouter();
 
   useEffect(() => {
-    fetch(track)
+    const basePath = router.basePath;
+
+    // Append track to basePath
+    const url = `${basePath}${track}`;
+    console.log(url);
+
+    fetch(url)
       .then(function (response) {
         return response.text();
       })
