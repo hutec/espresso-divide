@@ -4,7 +4,7 @@ import { GeoJSON, useMap } from "react-leaflet";
 import { gpx } from "@tmcw/togeojson";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { bounds, Path } from "leaflet";
+import { bounds } from "leaflet";
 import path from "path";
 
 const getBounds = (coordinates) => {
@@ -32,9 +32,6 @@ const Route = ({ track }) => {
 
   useEffect(() => {
     const url = path.join(router.basePath, track);
-
-    // Append track to basePath
-    console.log(url);
 
     fetch(url)
       .then(function (response) {
