@@ -4,7 +4,8 @@ import { GeoJSON, useMap } from "react-leaflet";
 import { gpx } from "@tmcw/togeojson";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { bounds } from "leaflet";
+import { bounds, Path } from "leaflet";
+import path from "path";
 
 const getBounds = (coordinates) => {
   const [minLat, minLon, maxLat, maxLon] = coordinates.reduce(
@@ -30,10 +31,9 @@ const Route = ({ track }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const basePath = router.basePath;
+    const url = path.join(router.basePath, track);
 
     // Append track to basePath
-    const url = `${basePath}${track}`;
     console.log(url);
 
     fetch(url)
@@ -44,7 +44,7 @@ const Route = ({ track }) => {
         const res = gpx(new DOMParser().parseFromString(xml, "text/xml"));
         setGeojson(res);
         bounds = getBounds(res.features[0].geometry.coordinates);
-        map.fitBounds(bounds);
+        map.fitBounds(bounds, { padding: [50, 50] });
       });
   }, []);
 
