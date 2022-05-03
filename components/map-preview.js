@@ -1,11 +1,10 @@
 import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { GeoJSON, useMap } from "react-leaflet";
-import { gpx } from "@tmcw/togeojson";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { bounds } from "leaflet";
 import path from "path";
+import { basePath } from "../next.config";
 
 const getBounds = (coordinates) => {
   const [minLat, minLon, maxLat, maxLon] = coordinates.reduce(
@@ -28,10 +27,9 @@ const Route = ({ track }) => {
   // See https://stackoverflow.com/questions/68758035/how-to-render-geojson-polygon-in-react-leaflet-mapcontainer
   const [geojson, setGeojson] = useState(0);
   const map = useMap();
-  const router = useRouter();
 
   useEffect(() => {
-    const url = path.join(router.basePath, track);
+    const url = path.join(basePath, track);
 
     // Replace .gpx with .geojson
     const geojsonFile = url.replace(".gpx", ".geojson");

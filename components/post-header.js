@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import path from "path";
+import { basePath } from "../next.config";
 
 import DateFormatter from "../components/date-formatter";
 import PostTitle from "../components/post-title";
@@ -10,8 +10,7 @@ const DynamicComponentWithNoSSR = dynamic(() => import("./map-preview"), {
 });
 
 export default function PostHeader({ title, track, date }) {
-  const router = useRouter();
-  const downloadUrl = path.join(router.basePath, track);
+  const downloadUrl = path.join(basePath, track);
 
   return (
     <>
