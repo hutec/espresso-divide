@@ -30,6 +30,7 @@ const Route = ({ track }) => {
 
   useEffect(() => {
     const url = path.join(basePath, track);
+    console.log("basePath = ", basePath);
 
     // Replace .gpx with .geojson
     const geojsonFile = url.replace(".gpx", ".geojson");

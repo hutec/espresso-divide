@@ -1,7 +1,7 @@
 name: Publish the nextjs application to gh-pages
 on:
   push:
-    branches: [main]
+    branches: [fix-base-path]
 
 env:
   APP_ENV: production
