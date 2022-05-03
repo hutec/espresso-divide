@@ -33,14 +33,15 @@ const Route = ({ track }) => {
   useEffect(() => {
     const url = path.join(router.basePath, track);
 
-    fetch(url)
-      .then(function (response) {
-        return response.text();
-      })
-      .then(function (xml) {
-        const res = gpx(new DOMParser().parseFromString(xml, "text/xml"));
-        setGeojson(res);
-        bounds = getBounds(res.features[0].geometry.coordinates);
+    // Replace .gpx with .geojson
+    const geojsonFile = url.replace(".gpx", ".geojson");
+
+    // read geojson file
+    fetch(geojsonFile)
+      .then((response) => response.json())
+      .then((data) => {
+        setGeojson(data);
+        bounds = getBounds(data.features[0].geometry.coordinates);
         map.fitBounds(bounds, { padding: [50, 50] });
       });
   }, []);
