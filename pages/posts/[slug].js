@@ -9,13 +9,13 @@ import { getPostBySlug, getAllPosts } from "../../lib/api";
 import PostTitle from "../../components/post-title";
 import Head from "next/head";
 import markdownToHtml from "../../lib/markdownToHtml";
+import { basePath } from "../../next.config";
 
 export default function Post({ post, morePosts, preview }) {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
-  console.log(post.track);
   return (
     <Layout preview={preview}>
       <Container>
@@ -51,7 +51,9 @@ export async function getStaticProps({ params }) {
     "content",
     "track",
   ]);
-  const content = await markdownToHtml(post.content || "");
+
+  const templateContent = post.content.replace("$BASEPATH", basePath);
+  const content = await markdownToHtml(templateContent || "");
 
   return {
     props: {

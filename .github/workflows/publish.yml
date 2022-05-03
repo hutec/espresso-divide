@@ -1,0 +1,28 @@
+name: Publish the nextjs application to gh-pages
+on:
+  push:
+    branches: [main]
+
+env:
+  APP_ENV: production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "17"
+      - name: Install the package
+        run: npm install
+      - name: Build and export the static application
+        run: npm run export
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: out # The folder the action should deploy.
+          clean: true
+          clean-exclude: |
+            .nojekyll

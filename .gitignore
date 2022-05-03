@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# generated .geojson files
+public/assets/blog/track-recordings/*.geojson

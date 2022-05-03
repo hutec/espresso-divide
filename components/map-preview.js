@@ -1,9 +1,10 @@
 import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { GeoJSON, useMap } from "react-leaflet";
-import { gpx } from "@tmcw/togeojson";
 import { useEffect, useState } from "react";
 import { bounds } from "leaflet";
+import path from "path";
+import { basePath } from "../next.config";
 
 const getBounds = (coordinates) => {
   const [minLat, minLon, maxLat, maxLon] = coordinates.reduce(
@@ -28,15 +29,18 @@ const Route = ({ track }) => {
   const map = useMap();
 
   useEffect(() => {
-    fetch(track)
-      .then(function (response) {
-        return response.text();
-      })
-      .then(function (xml) {
-        const res = gpx(new DOMParser().parseFromString(xml, "text/xml"));
-        setGeojson(res);
-        bounds = getBounds(res.features[0].geometry.coordinates);
-        map.fitBounds(bounds);
+    const url = path.join(basePath, track);
+
+    // Replace .gpx with .geojson
+    const geojsonFile = url.replace(".gpx", ".geojson");
+
+    // read geojson file
+    fetch(geojsonFile)
+      .then((response) => response.json())
+      .then((data) => {
+        setGeojson(data);
+        bounds = getBounds(data.features[0].geometry.coordinates);
+        map.fitBounds(bounds, { padding: [50, 50] });
       });
   }, []);
 

@@ -1,9 +1,10 @@
 {
   "private": true,
+  "homepage": "https://hutec.github.io/espresso-divide",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "export": "next build && next export",
+    "export": "node ./lib/gpxToGeojson.js && next build && next export",
     "start": "next start"
   },
   "dependencies": {
@@ -17,7 +18,8 @@
     "react-dom": "^18.0.0",
     "react-leaflet": "^4.0.0",
     "remark": "14.0.2",
-    "remark-html": "15.0.1"
+    "remark-html": "15.0.1",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.7.9",
