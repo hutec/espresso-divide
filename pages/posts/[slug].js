@@ -52,7 +52,7 @@ export async function getStaticProps({ params }) {
     "track",
   ]);
 
-  const templateContent = post.content.replace("$BASEPATH", basePath);
+  const templateContent = post.content.replaceAll("$BASEPATH", basePath);
   const content = await markdownToHtml(templateContent || "");
 
   return {
