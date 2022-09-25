@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import path from "path";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // Compute bounds over all posts/routes
 const computeBounds = async (basePath, posts) => {
@@ -39,7 +40,32 @@ const DynamicComponentWithNoSSR = dynamic(
     ssr: false,
   }
 );
-export default function Overview({ posts }) {
+export default function OverviewSection({ posts }) {
+  return (
+    <section>
+      <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
+        <Link href="/overview">
+          <a className="hover:underline">Overview</a>
+        </Link>
+      </h2>
+      <div className="h-96">
+        <OverviewMap posts={posts} />
+      </div>
+    </section>
+  );
+}
+
+export function OverviewPage({ posts }) {
+  return (
+    <section className="h-[80vh]">
+      <div className="h-full">
+        <OverviewMap posts={posts} />
+      </div>
+    </section>
+  );
+}
+
+export function OverviewMap({ posts }) {
   const [bounds, setBounds] = useState(null);
   const router = useRouter();
   useEffect(() => {
@@ -51,14 +77,8 @@ export default function Overview({ posts }) {
   }, []);
 
   return (
-    <section>
-      <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
-        Overview
-      </h2>
-
-      <div className="mb-5">
-        {bounds && <DynamicComponentWithNoSSR posts={posts} bounds={bounds} />}
-      </div>
-    </section>
+    <div className="mb-5 h-full">
+      {bounds && <DynamicComponentWithNoSSR posts={posts} bounds={bounds} />}
+    </div>
   );
 }

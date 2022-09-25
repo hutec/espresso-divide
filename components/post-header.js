@@ -16,7 +16,7 @@ export default function PostHeader({ title, track, date }) {
   return (
     <>
       <PostTitle>{title}</PostTitle>
-      <div className="mb-8 md:mb-16 sm:mx-0">
+      <div className="mb-8 md:mb-16 sm:mx-0 h-96">
         <DynamicComponentWithNoSSR track={track} />
         <a href={downloadUrl} className="text-sm text-gray-600 hover:underline">
           Download Track
