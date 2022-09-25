@@ -60,51 +60,43 @@ export function MapOverview({ posts, bounds }) {
   });
 
   return (
-    <div>
-      <div className="my-5 h-1/2">
-        <MapContainer
-          bounds={bounds}
-          zoom={4}
-          scrollWheelZoom={true}
-          className="h-96 w-full"
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {postAndColors.map((post) => (
-            <Route
-              key={post.post.slug}
-              track={post.post.track}
-              updateMapBounds={false}
-              color={post.color}
-              slug={post.post.slug}
-              title={post.post.title}
-            />
-          ))}
-        </MapContainer>
-      </div>
-    </div>
+    <MapContainer
+      bounds={bounds}
+      zoom={4}
+      scrollWheelZoom={true}
+      className="h-full w-full"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {postAndColors.map((post) => (
+        <Route
+          key={post.post.slug}
+          track={post.post.track}
+          updateMapBounds={false}
+          color={post.color}
+          slug={post.post.slug}
+          title={post.post.title}
+        />
+      ))}
+    </MapContainer>
   );
 }
 
 export default function MapPreview({ track }) {
   return (
-    <div>
-      <div className="my-5 h-1/2">
-        <MapContainer
-          center={[51.505, -0.09]}
-          zoom={4}
-          scrollWheelZoom={false}
-          className="h-96 w-full"
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Route track={track} updateMapBounds={true} />
-        </MapContainer>
-      </div>
-    </div>
+    <MapContainer
+      center={[51.505, -0.09]}
+      zoom={4}
+      scrollWheelZoom={false}
+      className="h-full w-full"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Route track={track} updateMapBounds={true} />
+    </MapContainer>
   );
 }

@@ -9,7 +9,7 @@ const DynamicComponentWithNoSSR = dynamic(() => import("./map-preview"), {
 export default function PostPreview({ title, date, excerpt, slug, track }) {
   return (
     <div>
-      <div className="mb-5">
+      <div className="my-5 h-96">
         <DynamicComponentWithNoSSR track={track} />
       </div>
       <h3 className="text-3xl mb-3 leading-snug">
